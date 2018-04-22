@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>preview_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -45,9 +48,12 @@
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -65,22 +71,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ControlClasses\Controller.cs" />
+    <Compile Include="ControlClasses\ConvertHashCode.cs" />
     <Compile Include="ControlClasses\Exporter.cs" />
     <Compile Include="ControlClasses\Input.cs" />
-    <Compile Include="DataModel\DailySoldModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailySoldModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\DailySoldModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailySoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\DailySoldModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailySoldModel.edmx</DependentUpon>
+    <Compile Include="ControlClasses\spinningCircles.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataModel\EmployeeModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -98,91 +93,132 @@
       <DependentUpon>EmployeeModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataModel\GetDailySold_Result.cs">
-      <DependentUpon>DailySoldModel.tt</DependentUpon>
+      <DependentUpon>SoldModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\GetSoldByYear_Result.cs">
-      <DependentUpon>SoldYearModel.tt</DependentUpon>
+    <Compile Include="DataModel\GetDayDetailsSold_Result.cs">
+      <DependentUpon>SoldModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\GetSoldDayDetails_Result.cs">
-      <DependentUpon>SoldProductNameModel.tt</DependentUpon>
+    <Compile Include="DataModel\GetMonthlySold_Result.cs">
+      <DependentUpon>SoldModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\GetSoldMonthly_Result.cs">
-      <DependentUpon>SoldMonthlyModel.tt</DependentUpon>
+    <Compile Include="DataModel\GetYearlySold_Result.cs">
+      <DependentUpon>SoldModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\PrintEmployee_Result.cs">
       <DependentUpon>EmployeeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldMonthlyModel.Context.cs">
+    <Compile Include="DataModel\ProductsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldMonthlyModel.Context.tt</DependentUpon>
+      <DependentUpon>ProductsModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldMonthlyModel.cs">
+    <Compile Include="DataModel\ProductsModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldMonthlyModel.tt</DependentUpon>
+      <DependentUpon>ProductsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldMonthlyModel.Designer.cs">
+    <Compile Include="DataModel\ProductsModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldMonthlyModel.edmx</DependentUpon>
+      <DependentUpon>ProductsModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldProductNameModel.Context.cs">
+    <Compile Include="DataModel\SoldModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldProductNameModel.Context.tt</DependentUpon>
+      <DependentUpon>SoldModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldProductNameModel.cs">
+    <Compile Include="DataModel\SoldModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldProductNameModel.tt</DependentUpon>
+      <DependentUpon>SoldModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldProductNameModel.Designer.cs">
+    <Compile Include="DataModel\SoldModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SoldProductNameModel.edmx</DependentUpon>
+      <DependentUpon>SoldModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SoldYearModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldYearModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SoldYearModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldYearModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SoldYearModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldYearModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmInsertEmployee.cs">
+    <Compile Include="Forms\FormInsertImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmInsertEmployee.Designer.cs">
-      <DependentUpon>frmInsertEmployee.cs</DependentUpon>
+    <Compile Include="Forms\FormInsertImport.Designer.cs">
+      <DependentUpon>FormInsertImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLogin.cs">
+    <Compile Include="Forms\FormCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmLogin.Designer.cs">
-      <DependentUpon>frmLogin.cs</DependentUpon>
+    <Compile Include="Forms\FormCategory.designer.cs">
+      <DependentUpon>FormCategory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmMain.cs">
+    <Compile Include="Forms\FormInsertEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="Forms\FormInsertEmployee.Designer.cs">
+      <DependentUpon>FormInsertEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmRole.cs">
+    <Compile Include="Forms\FormLoading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmRole.Designer.cs">
-      <DependentUpon>frmRole.cs</DependentUpon>
+    <Compile Include="Forms\FormLoading.Designer.cs">
+      <DependentUpon>FormLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPreviewPhoto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPreviewPhoto.Designer.cs">
+      <DependentUpon>FormPreviewPhoto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormProfile.Designer.cs">
+      <DependentUpon>FormProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormRole.Designer.cs">
+      <DependentUpon>FormRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormProductDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormProductDetails.designer.cs">
+      <DependentUpon>FormProductDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSendSMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSendSMS.Designer.cs">
+      <DependentUpon>FormSendSMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormServerConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormServerConnection.Designer.cs">
+      <DependentUpon>FormServerConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSoldInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSoldInformation.Designer.cs">
+      <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="InstanceClasses\Employee.cs" />
     <Compile Include="InstanceClasses\Role.cs" />
+    <Compile Include="InstanceClasses\SellProduct.cs" />
+    <Compile Include="InstanceClasses\sold.cs" />
     <Compile Include="Intefaces\IFunctionModel.cs" />
     <Compile Include="Intefaces\IMessageType.cs" />
     <Compile Include="InstanceClasses\Product.cs" />
@@ -194,140 +230,161 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\sell.cs" />
-    <Compile Include="UserControls\UBin.cs">
+    <Compile Include="UserControls\UserControlBin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Ubin.Designer.cs">
-      <DependentUpon>UBin.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlBin.Designer.cs">
+      <DependentUpon>UserControlBin.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UBinEmployee.cs">
+    <Compile Include="UserControls\UserControlBinEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UBinEmployee.Designer.cs">
-      <DependentUpon>UBinEmployee.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlBinEmployee.Designer.cs">
+      <DependentUpon>UserControlBinEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UEmployee.cs">
+    <Compile Include="UserControls\UserControlEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UEmployee.Designer.cs">
-      <DependentUpon>UEmployee.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlEmployee.Designer.cs">
+      <DependentUpon>UserControlEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UImportStock.cs">
+    <Compile Include="UserControls\UserControlImportStock.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UImportStock.Designer.cs">
-      <DependentUpon>UImportStock.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlImportStock.Designer.cs">
+      <DependentUpon>UserControlImportStock.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UProduct.cs">
+    <Compile Include="UserControls\UserControlProduct.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UProduct.Designer.cs">
-      <DependentUpon>UProduct.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlProduct.Designer.cs">
+      <DependentUpon>UserControlProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UReport.cs">
+    <Compile Include="UserControls\UserControlReport.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UReport.Designer.cs">
-      <DependentUpon>UReport.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlReport.Designer.cs">
+      <DependentUpon>UserControlReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\USetting.cs">
+    <Compile Include="UserControls\UserControlSelling.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\USetting.Designer.cs">
-      <DependentUpon>USetting.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlSelling.Designer.cs">
+      <DependentUpon>UserControlSelling.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\USold.cs">
+    <Compile Include="UserControls\UserControlSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\USold.Designer.cs">
-      <DependentUpon>USold.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlSetting.Designer.cs">
+      <DependentUpon>UserControlSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\USubSold.cs">
+    <Compile Include="UserControls\UserControlSold.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\USubSold.Designer.cs">
-      <DependentUpon>USubSold.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlSold.Designer.cs">
+      <DependentUpon>UserControlSold.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\frmInsertEmployee.resx">
-      <DependentUpon>frmInsertEmployee.cs</DependentUpon>
+    <Compile Include="UserControls\USubSoldReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\USubSoldReport.Designer.cs">
+      <DependentUpon>USubSoldReport.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\FormInsertImport.resx">
+      <DependentUpon>FormInsertImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmLogin.resx">
-      <DependentUpon>frmLogin.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormCategory.resx">
+      <DependentUpon>FormCategory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormInsertEmployee.resx">
+      <DependentUpon>FormInsertEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmRole.resx">
-      <DependentUpon>frmRole.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormLoading.resx">
+      <DependentUpon>FormLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPreviewPhoto.resx">
+      <DependentUpon>FormPreviewPhoto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormProfile.resx">
+      <DependentUpon>FormProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormRole.resx">
+      <DependentUpon>FormRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormProductDetails.resx">
+      <DependentUpon>FormProductDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSendSMS.resx">
+      <DependentUpon>FormSendSMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormServerConnection.resx">
+      <DependentUpon>FormServerConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSoldInformation.resx">
+      <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UBin.resx">
-      <DependentUpon>UBin.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlBin.resx">
+      <DependentUpon>UserControlBin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UBinEmployee.resx">
-      <DependentUpon>UBinEmployee.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlBinEmployee.resx">
+      <DependentUpon>UserControlBinEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UEmployee.resx">
-      <DependentUpon>UEmployee.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlEmployee.resx">
+      <DependentUpon>UserControlEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UImportStock.resx">
-      <DependentUpon>UImportStock.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlImportStock.resx">
+      <DependentUpon>UserControlImportStock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UProduct.resx">
-      <DependentUpon>UProduct.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlProduct.resx">
+      <DependentUpon>UserControlProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UReport.resx">
-      <DependentUpon>UReport.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlReport.resx">
+      <DependentUpon>UserControlReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\USetting.resx">
-      <DependentUpon>USetting.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlSelling.resx">
+      <DependentUpon>UserControlSelling.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\USold.resx">
-      <DependentUpon>USold.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlSetting.resx">
+      <DependentUpon>UserControlSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\USubSold.resx">
-      <DependentUpon>USubSold.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlSold.resx">
+      <DependentUpon>UserControlSold.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\USubSoldReport.resx">
+      <DependentUpon>USubSoldReport.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="DataModel\EmployeeModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EmployeeModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="DataModel\DailySoldModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DailySoldModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\DailySoldModel.edmx.diagram">
-      <DependentUpon>DailySoldModel.edmx</DependentUpon>
-    </None>
     <None Include="DataModel\EmployeeModel.edmx.diagram">
       <DependentUpon>EmployeeModel.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="DataModel\SoldYearModel.edmx">
+    <EntityDeploy Include="DataModel\SoldModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SoldYearModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SoldModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="DataModel\SoldMonthlyModel.edmx">
+    <EntityDeploy Include="DataModel\ProductsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SoldMonthlyModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ProductsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DataModel\SoldMonthlyModel.edmx.diagram">
-      <DependentUpon>SoldMonthlyModel.edmx</DependentUpon>
+    <None Include="DataModel\ProductsModel.edmx.diagram">
+      <DependentUpon>ProductsModel.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="DataModel\SoldProductNameModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SoldProductNameModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\SoldProductNameModel.edmx.diagram">
-      <DependentUpon>SoldProductNameModel.edmx</DependentUpon>
-    </None>
-    <None Include="DataModel\SoldYearModel.edmx.diagram">
-      <DependentUpon>SoldYearModel.edmx</DependentUpon>
+    <None Include="DataModel\SoldModel.edmx.diagram">
+      <DependentUpon>SoldModel.edmx</DependentUpon>
     </None>
     <None Include="Mart.DataModel.PrintEmployee_Result.datasource" />
     <None Include="Properties\Settings.settings">
@@ -341,16 +398,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\DailySoldModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailySoldModel.edmx</DependentUpon>
-      <LastGenOutput>DailySoldModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\DailySoldModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailySoldModel.edmx</DependentUpon>
-      <LastGenOutput>DailySoldModel.cs</LastGenOutput>
-    </Content>
     <Content Include="DataModel\EmployeeModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EmployeeModel.edmx</DependentUpon>
@@ -361,36 +408,64 @@
       <DependentUpon>EmployeeModel.edmx</DependentUpon>
       <LastGenOutput>EmployeeModel.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SoldMonthlyModel.Context.tt">
+    <Content Include="DataModel\ProductsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldMonthlyModel.edmx</DependentUpon>
-      <LastGenOutput>SoldMonthlyModel.Context.cs</LastGenOutput>
+      <DependentUpon>ProductsModel.edmx</DependentUpon>
+      <LastGenOutput>ProductsModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SoldMonthlyModel.tt">
+    <Content Include="DataModel\ProductsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldMonthlyModel.edmx</DependentUpon>
-      <LastGenOutput>SoldMonthlyModel.cs</LastGenOutput>
+      <DependentUpon>ProductsModel.edmx</DependentUpon>
+      <LastGenOutput>ProductsModel.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SoldProductNameModel.Context.tt">
+    <Content Include="DataModel\SoldModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldProductNameModel.edmx</DependentUpon>
-      <LastGenOutput>SoldProductNameModel.Context.cs</LastGenOutput>
+      <DependentUpon>SoldModel.edmx</DependentUpon>
+      <LastGenOutput>SoldModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SoldProductNameModel.tt">
+    <Content Include="DataModel\SoldModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldProductNameModel.edmx</DependentUpon>
-      <LastGenOutput>SoldProductNameModel.cs</LastGenOutput>
+      <DependentUpon>SoldModel.edmx</DependentUpon>
+      <LastGenOutput>SoldModel.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SoldYearModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldYearModel.edmx</DependentUpon>
-      <LastGenOutput>SoldYearModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\SoldYearModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldYearModel.edmx</DependentUpon>
-      <LastGenOutput>SoldYearModel.cs</LastGenOutput>
-    </Content>
+    <Content Include="preview_icon.ico" />
+    <None Include="Resources\Sell_32.png" />
+    <None Include="Resources\Connection_32.png" />
+    <None Include="Resources\background connection.jpg" />
+    <None Include="Resources\AddNew_32.png" />
+    <None Include="Resources\Add_20.png" />
+    <None Include="Resources\Cancel_32.png" />
+    <None Include="Resources\Clear_32.png" />
+    <None Include="Resources\Close_32.png" />
+    <None Include="Resources\Close_321.png" />
+    <None Include="Resources\Close_322.png" />
+    <None Include="Resources\Close_323.png" />
+    <Content Include="Resources\delete.png" />
+    <None Include="Resources\delete_32.png" />
+    <Content Include="Resources\delete_48.png" />
+    <None Include="Resources\Edit_32.png" />
+    <Content Include="Resources\edit_48.png" />
+    <None Include="Resources\ic_search_black_36dp_1x.png" />
+    <None Include="Resources\ic_mode_edit_black_48dp_1x.png" />
+    <None Include="Resources\ic_delete_forever_black_48dp_1x.png" />
+    <None Include="Resources\Excel_48.png" />
+    <None Include="Resources\Excel_32.png" />
+    <None Include="Resources\role_32.png" />
+    <None Include="Resources\Sales_history_32.png" />
+    <None Include="Resources\Import_32.png" />
+    <None Include="Resources\Refresh_32.png" />
+    <None Include="Resources\Picture_32.png" />
+    <None Include="Resources\Minimize_48.png" />
+    <None Include="Resources\Minimize_32.png" />
+    <None Include="Resources\Minimize_321.png" />
+    <Content Include="Resources\search_36.png" />
+    <None Include="Resources\collapse_48.png" />
+    <None Include="Resources\Search_48.png" />
+    <None Include="Resources\extend_481.png" />
+    <None Include="Resources\extend_48.png" />
+    <None Include="Resources\preview-icon.png" />
+    <None Include="Resources\lock_px.png" />
+    <None Include="Resources\Employee_48.png" />
     <None Include="Resources\Restart_48.png" />
     <None Include="Resources\GoBack_48.png" />
     <None Include="Resources\Back_48.png" />
