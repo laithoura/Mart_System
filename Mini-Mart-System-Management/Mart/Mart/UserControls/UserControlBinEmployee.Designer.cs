@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlBinEmployee));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExport = new System.Windows.Forms.Button();
             this.cboRole = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -49,7 +50,7 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtAccountNumber = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnExport = new System.Windows.Forms.Button();
+            this.btnRestore = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -61,6 +62,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.btnRestore);
             this.panel1.Controls.Add(this.btnExport);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.cboRole);
@@ -74,6 +76,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(838, 75);
             this.panel1.TabIndex = 0;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.BackgroundImage = global::Mart.Properties.Resources.Excel_32;
+            this.btnExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnExport.FlatAppearance.BorderSize = 0;
+            this.btnExport.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnExport.Location = new System.Drawing.Point(757, 4);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(78, 67);
+            this.btnExport.TabIndex = 23;
+            this.btnExport.Text = "Export";
+            this.btnExport.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExport.UseVisualStyleBackColor = true;
             // 
             // cboRole
             // 
@@ -149,8 +171,8 @@
             // 
             this.dgvEmployee.AllowUserToAddRows = false;
             this.dgvEmployee.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.dgvEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.dgvEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEmployee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEmployee.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvEmployee.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -263,25 +285,25 @@
             this.txtAccountNumber.Size = new System.Drawing.Size(13, 17);
             this.txtAccountNumber.Text = "0";
             // 
-            // btnExport
+            // btnRestore
             // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.BackgroundImage = global::Mart.Properties.Resources.Excel_32;
-            this.btnExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnExport.FlatAppearance.BorderSize = 0;
-            this.btnExport.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnExport.Location = new System.Drawing.Point(757, 4);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(78, 67);
-            this.btnExport.TabIndex = 23;
-            this.btnExport.Text = "Export";
-            this.btnExport.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRestore.BackgroundImage = global::Mart.Properties.Resources.Restore_32;
+            this.btnRestore.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnRestore.FlatAppearance.BorderSize = 0;
+            this.btnRestore.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestore.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnRestore.Location = new System.Drawing.Point(675, 4);
+            this.btnRestore.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRestore.Name = "btnRestore";
+            this.btnRestore.Size = new System.Drawing.Size(78, 67);
+            this.btnRestore.TabIndex = 24;
+            this.btnRestore.Text = "Restore";
+            this.btnRestore.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRestore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRestore.UseVisualStyleBackColor = true;
             // 
             // btnRefresh
             // 
@@ -293,7 +315,7 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnRefresh.Location = new System.Drawing.Point(674, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(593, 4);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(78, 67);
@@ -303,7 +325,7 @@
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRefresh.UseVisualStyleBackColor = true;
             // 
-            // UBinEmployee
+            // UserControlBinEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -311,7 +333,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "UBinEmployee";
+            this.Name = "UserControlBinEmployee";
             this.Size = new System.Drawing.Size(838, 512);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -347,6 +369,7 @@
         private System.Windows.Forms.ToolStripStatusLabel txtAccountNumber;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnRestore;
 
     }
 }

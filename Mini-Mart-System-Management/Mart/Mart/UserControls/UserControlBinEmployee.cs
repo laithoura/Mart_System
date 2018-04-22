@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using Mart.Intefaces;
-using Mart.DataModel;
 namespace Mart.UserControls
 {
     public partial class UserControlBinEmployee : UserControl,IMessageType
@@ -48,6 +47,59 @@ namespace Mart.UserControls
 
             btnRefresh.Click += btnRefresh_Click;
             btnExport.Click += btnExport_Click;
+            btnRestore.Click += btnRestore_Click;
+        }
+
+        void btnRestore_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = this.MessageVerify("Do you want to Restore?", "Retore Employee");
+            if (dr == DialogResult.Yes)
+            {
+                foreach (DataGridViewRow row in dgvEmployee.SelectedRows)
+                {
+                    int id =(int)row.Cells[0].Value;
+                    if (RestoreEmployee(id))
+                    {
+                        MessageSuccess("Restored successfully", "Delete");                        
+                        dgvEmployee.Rows.Remove(row);
+                    }
+                    else MessageError("Retored Unsuccessfully", "Delete");
+                }                
+            }
+        }
+
+        private bool RestoreEmployee(int id)
+        {
+            SqlCommand cmd = null;
+            SqlConnection con = Connection.getConnection();
+            bool success = false;
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("UPDATE Employee SET deletedDate = @dDate, status = @stu WHERE empID = @id", con);
+                cmd.Parameters.AddWithValue("@dDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@stu", true);
+                cmd.Parameters.AddWithValue("@id", id);
+                if (cmd.ExecuteNonQuery() > 0) success = true;
+            }
+            catch (Exception e)
+            {
+                MessageError(e.Message, "Error Delete");
+                success = false;
+            }
+            finally
+            {
+                try
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
+                catch (NullReferenceException ex)
+                {
+                    MessageError(ex.Message,"Restore");
+                }
+            }
+            return success;
         }
 
         void btnExport_Click(object sender, EventArgs e)
@@ -142,35 +194,54 @@ namespace Mart.UserControls
 
         private void RefreshDataGridview(string condition, int searchType, bool status)
         {
-            EmployeesEntity db = new EmployeesEntity();
-            dgvEmployee.DataSource = db.PrintEmployee(condition, searchType, status).ToList();
-
-            Controller.AlignHeaderTextCenter(dgvEmployee.Columns[0],dgvEmployee.Columns[1],dgvEmployee.Columns[2],dgvEmployee.Columns[3],dgvEmployee.Columns[4],dgvEmployee.Columns[5],dgvEmployee.Columns[6]);
-            dgvEmployee.Columns[0].HeaderText = "Employee ID";
-            dgvEmployee.Columns[1].HeaderText = "First Name";
-            dgvEmployee.Columns[2].HeaderText = "Last Name";
-            dgvEmployee.Columns[3].HeaderText = "Gender";
-            dgvEmployee.Columns[4].HeaderText = "BirthDate";
-            dgvEmployee.Columns[5].HeaderText = "Username";
-            dgvEmployee.Columns[6].HeaderText = "Role";
-
-            dgvEmployee.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
-
-            txtEmployeeNumber.Text = dgvEmployee.Rows.Count.ToString();
-            int female = 0;
-            int account = 0;
-            foreach (DataGridViewRow row in dgvEmployee.Rows)
+            try
             {
-                if (row.Cells[3].Value.ToString().CompareTo("Female") == 0)
+                SqlConnection con = Connection.getConnection();
+                SqlCommand cmd;
+                SqlDataAdapter da;
+            
+                cmd = new SqlCommand("PrintEmployee", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@condition", condition);
+                cmd.Parameters.AddWithValue("@searchType",searchType );
+                cmd.Parameters.AddWithValue("@sta",false);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+           
+                dgvEmployee.DataSource = dt;
+
+                Controller.AlignHeaderTextCenter(dgvEmployee.Columns[0],dgvEmployee.Columns[1],dgvEmployee.Columns[2],dgvEmployee.Columns[3],dgvEmployee.Columns[4],dgvEmployee.Columns[5],dgvEmployee.Columns[6]);
+                dgvEmployee.Columns[0].HeaderText = "Employee ID";
+                dgvEmployee.Columns[1].HeaderText = "First Name";
+                dgvEmployee.Columns[2].HeaderText = "Last Name";
+                dgvEmployee.Columns[3].HeaderText = "Gender";
+                dgvEmployee.Columns[4].HeaderText = "BirthDate";
+                dgvEmployee.Columns[5].HeaderText = "Username";
+                dgvEmployee.Columns[6].HeaderText = "Role";
+
+                dgvEmployee.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
+
+                txtEmployeeNumber.Text = dgvEmployee.Rows.Count.ToString();
+                int female = 0;
+                int account = 0;
+                foreach (DataGridViewRow row in dgvEmployee.Rows)
                 {
-                    female++;
-                } if (row.Cells[5].Value.ToString().Trim() != "")
-                {
-                    account++;                    
+                    if (row.Cells[3].Value.ToString().CompareTo("Female") == 0)
+                    {
+                        female++;
+                    } if (row.Cells[5].Value.ToString().Trim() != "")
+                    {
+                        account++;                    
+                    }
                 }
+                txtAccountNumber.Text = account.ToString();
+                txtFemaleNumber.Text = female.ToString();
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Employee");        
             }
-            txtAccountNumber.Text = account.ToString();
-            txtFemaleNumber.Text = female.ToString();
         }
 
         void cboSearch_SelectedValueChanged(object sender, EventArgs e)

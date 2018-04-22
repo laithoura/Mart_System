@@ -193,6 +193,7 @@ namespace Mart.Forms
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine("ComboBox Value Change: " + ex.Message);
                 //MessageBox.Show(ex.Message);
             }
         }

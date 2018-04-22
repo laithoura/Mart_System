@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using Mart.DataModel;
 using System.Data.SqlClient;
 using System.Globalization;
 using Mart.Forms;
@@ -179,7 +178,9 @@ namespace Mart
                     cboMonthDetail.SelectedIndex = -1;
                 } 
             }
-            catch (Exception ex){ }
+            catch (Exception ex){
+                MessageBox.Show(ex.Message,"ComboxBox Year");
+            }
             LoadReportToDataGrid(LoadFunction.MONTHLY);
         }
 
@@ -197,15 +198,45 @@ namespace Mart
 
         void dgvMonth_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvSoldMonth.Rows.Count <= 0) return;
+
             int index = dgvSoldMonth.CurrentRow.Index;
             int year = int.Parse(dgvSoldYear.Rows[dgvSoldYear.CurrentRow.Index].Cells[0].Value.ToString());
             string month = dgvSoldMonth.Rows[index].Cells[0].Value.ToString();
             lblDayTitle.Text = string.Format("Report on {0}, {1}",month,year);
-            
-            SoldEntities dbSold = new SoldEntities();
-            int empID = (cboSellerTable.SelectedIndex == -1) ? -1 : (int)cboSellerTable.SelectedValue;           
-            dgvSoldDay.DataSource = dbSold.GetDailySold(month,year,empID).ToList();
-            RefreshTotal();
+
+            SqlConnection con = Connection.getConnection();
+            SqlCommand cmd;
+            SqlDataAdapter da;
+
+            try
+            {
+                if (con.State == ConnectionState.Closed)                
+                    con.Open();
+
+                int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
+
+                cmd = new SqlCommand("GetDailySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mon", month);
+                cmd.Parameters.AddWithValue("@year", year);
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvSoldDay.DataSource = dt;
+                RefreshTotal();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Yearly Sold");
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }
         }
 
         void dgvYear_SelectionChanged(object sender, EventArgs e)
@@ -213,10 +244,36 @@ namespace Mart
             int index = dgvSoldYear.CurrentRow.Index;
             lblMonthTitle.Text = string.Format("Report in {0}",dgvSoldYear.Rows[index].Cells[0].Value.ToString());
 
-            SoldEntities dbSold = new SoldEntities();
-            int empID = (cboSellerTable.SelectedIndex == -1) ? -1 : (int)cboSellerTable.SelectedValue;
-            dgvSoldMonth.DataSource = dbSold.GetMonthlySold(int.Parse(dgvSoldYear.Rows[index].Cells[0].Value.ToString()),empID).ToList();
-            RefreshTotal();
+            SqlConnection con = Connection.getConnection();
+            SqlCommand cmd;
+            SqlDataAdapter da;
+
+            try
+            {
+                if (con.State == ConnectionState.Closed)                
+                con.Open();
+                int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
+
+                cmd = new SqlCommand("GetMonthlySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@y", yearSelected);
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvSoldMonth.DataSource = dt;
+                RefreshTotal();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Yearly Sold");
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }           
         }
 
         void tabControlReport_SelectedIndexChanged(object sender, EventArgs e)
@@ -234,27 +291,61 @@ namespace Mart
 
         private void LoadReportIntoTable()
         {
+            SqlConnection con = Connection.getConnection();
+            SqlCommand cmd;
+            SqlDataAdapter da;
+
             int empID = -1;
             try
             {
-                SoldEntities dbSold = new SoldEntities();                
+                if(con.State == ConnectionState.Closed)
+                    con.Open();
                 empID = (cboSellerTable.SelectedIndex == -1) ? -1 : (int)cboSellerTable.SelectedValue;
-                dgvSoldYear.DataSource = dbSold.GetYearlySold(empID).ToList();
+
+                cmd = new SqlCommand("GetYearlySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvSoldYear.DataSource = dt;
                 dgvSoldYear.Columns[1].DefaultCellStyle.Format = "#,##0.00 R";
                 dgvSoldYear.Columns[0].HeaderText = "Year";
                 dgvSoldYear.Columns[1].HeaderText = "Amount";
                 Controller.AlignHeaderTextCenter(dgvSoldYear.Columns[0], dgvSoldYear.Columns[1]);
  
-
+                /*Monthly Sold*/
                 int cellSelectedYear = (dgvSoldYear.RowCount == 0) ? 0 : (int)dgvSoldYear.CurrentRow.Cells[0].Value;
-                dgvSoldMonth.DataSource = dbSold.GetMonthlySold(cellSelectedYear, empID).ToList();
+
+                cmd = new SqlCommand("GetMonthlySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@y", cellSelectedYear);
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dtMonth = new DataTable();
+                da.Fill(dtMonth);
+
+                dgvSoldMonth.DataSource = dtMonth;
                 dgvSoldMonth.Columns[1].DefaultCellStyle.Format = "#,##0.00 R";
                 dgvSoldMonth.Columns[0].HeaderText = "Month";
                 dgvSoldMonth.Columns[1].HeaderText = "Amount";
                 Controller.AlignHeaderTextCenter(dgvSoldMonth.Columns[0], dgvSoldMonth.Columns[1]); 
 
+
+                /*Daily Sold*/
                 string cellSelectedMonth = (dgvSoldMonth.RowCount == 0) ? "" : dgvSoldMonth.CurrentRow.Cells[0].Value.ToString();
-                dgvSoldDay.DataSource = dbSold.GetDailySold(cellSelectedMonth, cellSelectedYear, empID);
+
+                cmd = new SqlCommand("GetDailySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mon", cellSelectedMonth);
+                cmd.Parameters.AddWithValue("@year", cellSelectedYear);
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dtDaily = new DataTable();
+                da.Fill(dtDaily);
+
+                dgvSoldDay.DataSource = dtDaily;
                 dgvSoldDay.Columns[1].DefaultCellStyle.Format = "#,##0.00 R";
                 dgvSoldDay.Columns[0].HeaderText = "Day";
                 dgvSoldDay.Columns[1].HeaderText = "Amount";
@@ -266,14 +357,21 @@ namespace Mart
                 dgvSoldDay.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;   
 
                 /*Product Detail*/
-                cboYearDetail.DataSource = dbSold.GetYearlySold(empID).ToList();
+                cboYearDetail.DataSource = dt;
                 cboYearDetail.DisplayMember = "year";
                 cboYearDetail.ValueMember = "year";
                 cboYearDetail.SelectedIndex = -1;
 
                 RefreshTotal();
             }
-            catch (Exception){  }                     
+            catch (Exception ex){
+                MessageBox.Show(ex.Message,"Load Report to table");
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }            
         }
 
         private void LoadReportToDataGrid(LoadFunction type)
@@ -283,11 +381,12 @@ namespace Mart
             SqlCommand cmd = null;
             try
             {
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
                 int soldYear = (cboYearDetail.SelectedIndex == -1) ? -1 : (int)cboYearDetail.SelectedValue;
                 int soldMonth = (cboMonthDetail.SelectedIndex == -1) ? -1 : (int)cboMonthDetail.SelectedValue;
                 int empID = (cboSellerDetail.SelectedIndex == -1) ? -1 : (int)cboSellerDetail.SelectedValue; 
-                
-                con.Open();
+                              
                 if (type == LoadFunction.YEARLY)
                 {
                     cmd = new SqlCommand("GetTableSoldByYear", con);
@@ -395,6 +494,7 @@ namespace Mart
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine("Load Report : " + ex.Message);
                 //MessageBox.Show(ex.Message,"LOAD FUNCTION");
             }
             finally
@@ -540,18 +640,29 @@ namespace Mart
         {
             if (date == null) return;
             try
-            {
-                SoldEntities dbSold = new SoldEntities();
-                int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;            
-                BindingSource bs = new BindingSource(dbSold.GetDayDetailsSold(date,empID).ToList(), null);
-                chartSoldBar.DataSource = bs;
+            {               
+                SqlConnection con = Connection.getConnection();
+                SqlCommand cmd;
+                SqlDataAdapter da;
+
+                int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
+
+                cmd = new SqlCommand("GetDayDetailsSold", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@detail_date", date);
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                               
+                chartSoldBar.DataSource = dt;
                 chartSoldBar.Series[0].XValueMember = "proname";
                 chartSoldBar.Series[0].XValueType = ChartValueType.String;
                 chartSoldBar.Series[0].YValueMembers = "amount";
                 chartSoldBar.Series[0].YValueType = ChartValueType.Double;
                 chartSoldBar.Series[0]["PixelPointWidth"] = PIXEL_POINT_WIDTH;
 
-                chartSoldPie.DataSource = bs;
+                chartSoldPie.DataSource = dt;
                 chartSoldPie.Series[0].XValueMember = "proname";
                 chartSoldPie.Series[0].XValueType = ChartValueType.String;
                 chartSoldPie.Series[0].YValueMembers = "amount";
@@ -569,18 +680,29 @@ namespace Mart
             if (monthSelected.Trim() != "" && yearSelected != 0)
             {
                 try
-                {
-                    SoldEntities dbSold = new SoldEntities();
-                    int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;            
+                {                   
+                    SqlConnection con = Connection.getConnection();
+                    SqlCommand cmd;
+                    SqlDataAdapter da;
 
-                    BindingSource bs = new BindingSource(dbSold.GetDailySold(monthSelected.Trim(), yearSelected,empID).ToList(), null);
-                    chartSoldPie.DataSource = bs;
+                    int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
+
+                    cmd = new SqlCommand("GetDailySold", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@mon", monthSelected.Trim());
+                    cmd.Parameters.AddWithValue("@year", yearSelected);
+                    cmd.Parameters.AddWithValue("@empID", empID);
+                    da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    chartSoldPie.DataSource = dt;
                     chartSoldPie.Series[0].XValueMember = "days";
                     chartSoldPie.Series[0].XValueType = ChartValueType.Int32;
                     chartSoldPie.Series[0].YValueMembers = "amount";
                     chartSoldPie.Series[0].YValueType = ChartValueType.Double;
                 
-                    chartSoldBar.DataSource = bs;
+                    chartSoldBar.DataSource = dt;
                     chartSoldBar.Series[0].XValueMember = "days";
                     chartSoldBar.Series[0].XValueType = ChartValueType.Int32;
                     chartSoldBar.Series[0].YValueMembers = "amount";
@@ -613,18 +735,28 @@ namespace Mart
             {
                 try
                 {
-                    SoldEntities dbSold = new SoldEntities();
+                    SqlConnection con = Connection.getConnection();
+                    SqlCommand cmd;
+                    SqlDataAdapter da;
+
                     int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
 
-                    BindingSource bs = new BindingSource(dbSold.GetMonthlySold(year, empID).ToList(), null);
+                    cmd = new SqlCommand("GetMonthlySold", con);
+                    cmd.CommandType = CommandType.StoredProcedure;                    
+                    cmd.Parameters.AddWithValue("@y", yearSelected);
+                    cmd.Parameters.AddWithValue("@empID", empID);
+                    da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
 
-                    chartSoldPie.DataSource = bs;
+
+                    chartSoldPie.DataSource = dt;
                     chartSoldPie.Series[0].XValueMember = "month";
                     chartSoldPie.Series[0].XValueType = ChartValueType.String;
                     chartSoldPie.Series[0].YValueMembers = "amount";
                     chartSoldPie.Series[0].YValueType = ChartValueType.Double;
 
-                    chartSoldBar.DataSource = bs;
+                    chartSoldBar.DataSource = dt;
                     chartSoldBar.Series[0].XValueMember = "month";
                     chartSoldBar.Series[0].XValueType = ChartValueType.String;
                     chartSoldBar.Series[0].YValueMembers = "amount";
@@ -635,8 +767,9 @@ namespace Mart
                     chartSoldPie.Titles[0].Text = titles;
                     chartSoldBar.Titles[0].Text = titles;             
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    MessageBox.Show( ex.Message,"Monthly Sold By Year");
                 } 
             }
         }      
@@ -644,23 +777,33 @@ namespace Mart
         private void LoadMainReport()
         {            
             try
-            {               
-                SoldEntities dbSold = new SoldEntities();
-                int empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
-                BindingSource bs = new BindingSource(dbSold.GetYearlySold(empID).ToList(), null);
+            {                              
+                SqlConnection con = Connection.getConnection();
+                SqlCommand cmd;
+                SqlDataAdapter da;
+                int empID = -1;
+                empID = (cboSellerChart.SelectedIndex == -1) ? -1 : (int)cboSellerChart.SelectedValue;
 
-                cboYearChart.DataSource = bs;
+                cmd = new SqlCommand("GetYearlySold", con);
+                cmd.CommandType = CommandType.StoredProcedure;              
+                cmd.Parameters.AddWithValue("@empID", empID);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+
+                cboYearChart.DataSource = dt;
                 cboYearChart.DisplayMember = "year";
                 cboYearChart.ValueMember = "year";
                 cboYearChart.SelectedIndex = -1;
 
-                chartSoldPie.DataSource = bs;
+                chartSoldPie.DataSource = dt;
                 chartSoldPie.Series[0].XValueMember = "year";
                 chartSoldPie.Series[0].XValueType = ChartValueType.Int32;
                 chartSoldPie.Series[0].YValueMembers = "amount";
                 chartSoldPie.Series[0].YValueType = ChartValueType.Double;
 
-                chartSoldBar.DataSource = bs;
+                chartSoldBar.DataSource = dt;
                 chartSoldBar.Series[0].XValueMember = "year";
                 chartSoldBar.Series[0].XValueType = ChartValueType.Int32;
                 chartSoldBar.Series[0].YValueMembers = "amount";

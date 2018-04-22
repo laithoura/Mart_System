@@ -77,66 +77,6 @@
     <Compile Include="ControlClasses\spinningCircles.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataModel\EmployeeModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeeModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\EmployeeModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\EmployeeModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeeModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\GetDailySold_Result.cs">
-      <DependentUpon>SoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\GetDayDetailsSold_Result.cs">
-      <DependentUpon>SoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\GetMonthlySold_Result.cs">
-      <DependentUpon>SoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\GetYearlySold_Result.cs">
-      <DependentUpon>SoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\PrintEmployee_Result.cs">
-      <DependentUpon>EmployeeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ProductsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ProductsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ProductsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SoldModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SoldModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SoldModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SoldModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormInsertImport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -365,27 +305,6 @@
       <DependentUpon>USubSoldReport.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
-    <EntityDeploy Include="DataModel\EmployeeModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EmployeeModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\EmployeeModel.edmx.diagram">
-      <DependentUpon>EmployeeModel.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="DataModel\SoldModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SoldModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <EntityDeploy Include="DataModel\ProductsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ProductsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\ProductsModel.edmx.diagram">
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-    </None>
-    <None Include="DataModel\SoldModel.edmx.diagram">
-      <DependentUpon>SoldModel.edmx</DependentUpon>
-    </None>
     <None Include="Mart.DataModel.PrintEmployee_Result.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -398,40 +317,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\EmployeeModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EmployeeModel.edmx</DependentUpon>
-      <LastGenOutput>EmployeeModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\EmployeeModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EmployeeModel.edmx</DependentUpon>
-      <LastGenOutput>EmployeeModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\ProductsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-      <LastGenOutput>ProductsModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\ProductsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-      <LastGenOutput>ProductsModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\SoldModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldModel.edmx</DependentUpon>
-      <LastGenOutput>SoldModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\SoldModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SoldModel.edmx</DependentUpon>
-      <LastGenOutput>SoldModel.cs</LastGenOutput>
-    </Content>
     <Content Include="preview_icon.ico" />
+    <None Include="Resources\Restore_32.png" />
+    <None Include="Resources\Restore_20.png" />
     <None Include="Resources\Sell_32.png" />
     <None Include="Resources\Connection_32.png" />
-    <None Include="Resources\background connection.jpg" />
     <None Include="Resources\AddNew_32.png" />
     <None Include="Resources\Add_20.png" />
     <None Include="Resources\Cancel_32.png" />
@@ -442,12 +332,7 @@
     <None Include="Resources\Close_323.png" />
     <Content Include="Resources\delete.png" />
     <None Include="Resources\delete_32.png" />
-    <Content Include="Resources\delete_48.png" />
     <None Include="Resources\Edit_32.png" />
-    <Content Include="Resources\edit_48.png" />
-    <None Include="Resources\ic_search_black_36dp_1x.png" />
-    <None Include="Resources\ic_mode_edit_black_48dp_1x.png" />
-    <None Include="Resources\ic_delete_forever_black_48dp_1x.png" />
     <None Include="Resources\Excel_48.png" />
     <None Include="Resources\Excel_32.png" />
     <None Include="Resources\role_32.png" />
@@ -458,10 +343,8 @@
     <None Include="Resources\Minimize_48.png" />
     <None Include="Resources\Minimize_32.png" />
     <None Include="Resources\Minimize_321.png" />
-    <Content Include="Resources\search_36.png" />
     <None Include="Resources\collapse_48.png" />
     <None Include="Resources\Search_48.png" />
-    <None Include="Resources\extend_481.png" />
     <None Include="Resources\extend_48.png" />
     <None Include="Resources\preview-icon.png" />
     <None Include="Resources\lock_px.png" />
@@ -469,7 +352,6 @@
     <None Include="Resources\Restart_48.png" />
     <None Include="Resources\GoBack_48.png" />
     <None Include="Resources\Back_48.png" />
-    <None Include="Resources\login.jpg" />
     <None Include="Resources\show9.png" />
     <None Include="Resources\Cancel_48.png" />
     <None Include="Resources\Resize.png" />
@@ -483,6 +365,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataModel\" />
     <Folder Include="FormPrintDocuments\" />
     <Folder Include="RDLCReport\" />
   </ItemGroup>

@@ -68,9 +68,9 @@ namespace Mart
                 cbo.DisplayMember = fieldDes;
                 cbo.ValueMember = fieldID;             
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Fill combobox: "+e.Message);
+                System.Diagnostics.Debug.WriteLine("Fill ComboBox Value : " + ex.Message);
             }
             finally
             {
@@ -107,7 +107,9 @@ namespace Mart
                     if (con.State == ConnectionState.Open)
                         con.Close();
                 }
-                catch (NullReferenceException ex){ }
+                catch (NullReferenceException ex){
+                    System.Diagnostics.Debug.WriteLine("Fill ComboBox Value : "+ex.Message);
+                }
             }
         }
 

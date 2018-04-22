@@ -74,7 +74,7 @@ namespace Mart.Forms
                     Input.InputNmber((TextBox)sender, e);                    
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
             
             }

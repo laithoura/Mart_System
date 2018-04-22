@@ -35,7 +35,7 @@ namespace Mart.Forms
                         MessageBox.Show("Your text has been sent","Message");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Message send failure", "Message");
                 }

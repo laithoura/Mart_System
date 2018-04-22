@@ -19,7 +19,6 @@ namespace Mart
         /*Connection Declaration*/
         private SqlConnection cnn = Connection.getConnection();
         private SqlCommand cmd;
-        private SqlDataAdapter adapter;
         private DataTable table;
         /*SQL Command*/
 
@@ -27,7 +26,6 @@ namespace Mart
         private readonly String[] SearchBy = { "Product ID", "Product Name", "Price", "Category" };
         private static string searchText = "";
         private static int searchType = 1;
-        private string filter = "";
         /*Form Declaration*/
         FormCategory categoryForm = null;
         #endregion

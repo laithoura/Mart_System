@@ -48,6 +48,7 @@ namespace Mart.ControlClasses
             }
             catch (ArgumentException ex)
             {
+                System.Diagnostics.Debug.WriteLine("Fill ComboBox Value : " + ex.Message);
                 success = true;                   
             }                                                         
             return success;

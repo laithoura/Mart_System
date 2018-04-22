@@ -285,9 +285,9 @@ namespace Mart.Forms
                 {
                     cmdImpDatial.Dispose();
                     con.Close();
-                } catch (NullReferenceException ee)
+                } catch (NullReferenceException ex)
                 {
-
+                    System.Diagnostics.Debug.WriteLine("Import Detail : " + ex.Message);
                 }             
             }
             return success; 
@@ -360,6 +360,7 @@ namespace Mart.Forms
                     }
                     catch (SqlException ex)
                     {
+                        System.Diagnostics.Debug.WriteLine("Import : " + ex.Message);
                     }             
                 }
             }
