@@ -104,7 +104,7 @@ namespace Mart.Forms
                     btnSave.Enabled = false;
                     return;
                 }
-               conString = string.Format(@"Data Source={0};Initial Catalog={1};User={3};Password={4};", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim(),txtUsername.Text.Trim(),txtPassword.Text.Trim());         
+               conString = string.Format(@"Data Source={0};Initial Catalog={1};User={2};Password={3};", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim(),txtUsername.Text.Trim(),txtPassword.Text.Trim());         
             }
 
             SqlConnection con = null;

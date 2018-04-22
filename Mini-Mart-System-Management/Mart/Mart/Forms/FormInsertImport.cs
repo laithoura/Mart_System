@@ -189,7 +189,15 @@ namespace Mart.Forms
             {
                 con.Close();
             }
-            if(cboProduct.Items.Count > 0) cboProduct.SelectedIndex = -1;
+            if (cboProduct.Items.Count > 0)
+            {
+                cboProduct.SelectedIndex = -1;
+                btnAdd.Enabled =true;
+            }
+            else
+            {
+                btnAdd.Enabled = false;
+            }
         }
 
         private void LoadSupplierIntoComboBox()
@@ -197,7 +205,7 @@ namespace Mart.Forms
             try
             {
                 con.Open();
-                SqlDataAdapter daSup = new SqlDataAdapter("select supName, supID from supplier", con);
+                SqlDataAdapter daSup = new SqlDataAdapter("select supLastName +' '+supFirstName as [supName] , supID from supplier", con);
                 DataTable dtSup = new DataTable();
                 daSup.Fill(dtSup);
                 cboSupplier.DataSource = dtSup;
@@ -212,7 +220,15 @@ namespace Mart.Forms
             {
                 con.Close();
             }
-            if (cboSupplier.Items.Count > 0) cboSupplier.SelectedIndex = -1;
+            if (cboSupplier.Items.Count > 0)
+            {
+                cboSupplier.SelectedIndex = -1;
+                btnAdd.Enabled = true;
+            }
+            else
+            {
+                btnAdd.Enabled = false;
+            }
         }
 
         private bool SaveImprotDetail(int impID)
