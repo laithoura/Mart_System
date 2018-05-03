@@ -410,8 +410,11 @@ namespace Mart
                     if ((string)dr["username"] != "") AccoutNumber ++;
                     Employee.LoadedInstance((int)dr["empID"], (string)dr["firstName"], (string)dr["lastName"], (string)dr["gender"], (DateTime)dr["birthDate"], (string)dr["username"], (string)dr["password"], new Role((int)dr["roleID"], (string)dr["roleName"]), (bool)dr["status"], (byte[])dr["photo"]);                
                 }
-                SetBottomInformationToTextBox();
-                if (employeeList.Count == 0) btnRefresh.Enabled = false;                   
+                SetBottomInformationToTextBox();                
+                if (employeeList.Count == 0)
+                    btnRefresh.Enabled = false;                   
+                else
+                    SetEnableButton(true);
             }
             catch (Exception e)
             {
@@ -561,6 +564,7 @@ namespace Mart
             }
             SetBottomInformationToTextBox();            
         }
+        
     }
        
 }

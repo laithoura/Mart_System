@@ -161,12 +161,6 @@
     <Compile Include="Forms\FormSoldInformation.Designer.cs">
       <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormSupplierDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSupplierDetail.designer.cs">
-      <DependentUpon>FormSupplierDetail.cs</DependentUpon>
-    </Compile>
     <Compile Include="InstanceClasses\Employee.cs" />
     <Compile Include="InstanceClasses\Role.cs" />
     <Compile Include="InstanceClasses\SellProduct.cs" />
@@ -183,6 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="UserControls\UserControlBin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -231,11 +226,11 @@
     <Compile Include="UserControls\UserControlSelling.Designer.cs">
       <DependentUpon>UserControlSelling.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserControlSetting.cs">
+    <Compile Include="UserControls\UserControlSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlSetting.Designer.cs">
-      <DependentUpon>UserControlSetting.cs</DependentUpon>
+    <Compile Include="UserControls\UserControlSupplier.designer.cs">
+      <DependentUpon>UserControlSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserControlSold.cs">
       <SubType>UserControl</SubType>
@@ -291,9 +286,6 @@
     <EmbeddedResource Include="Forms\FormSoldInformation.resx">
       <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSupplierDetail.resx">
-      <DependentUpon>FormSupplierDetail.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -323,8 +315,8 @@
     <EmbeddedResource Include="UserControls\UserControlSelling.resx">
       <DependentUpon>UserControlSelling.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserControlSetting.resx">
-      <DependentUpon>UserControlSetting.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserControlSupplier.resx">
+      <DependentUpon>UserControlSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlSold.resx">
       <DependentUpon>UserControlSold.cs</DependentUpon>
@@ -356,6 +348,7 @@
     <Content Include="Resources\icons8_Search_25px_1.png" />
     <Content Include="Resources\icons8_Trash_Can_25px.png" />
     <Content Include="Resources\icons8_Update_User_25px.png" />
+    <None Include="Resources\images.png" />
     <Content Include="Resources\Untitled-111copy 2.png" />
     <None Include="Resources\Restore_32.png" />
     <None Include="Resources\Restore_20.png" />

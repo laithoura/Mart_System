@@ -28,19 +28,24 @@ namespace Mart
         {
             InitializeComponent();
             tpEmployee.Click += tpEmployee_Click;
-            tpEmployee_Click(tpEmployee, null);  
+            tpSupplier.Click += TpSupplier_Click;
+            tpEmployee_Click(tpEmployee, null);
+            TpSupplier_Click(tpSupplier,null);
+        }
+
+        private void TpSupplier_Click(object sender, EventArgs e)
+        {
+            UserControlBinSupplier binSupplier = new UserControlBinSupplier();            
+            binSupplier.Dock = DockStyle.Fill;
+            tpSupplier.Controls.Add(binSupplier);
         }
 
         void tpEmployee_Click(object sender, EventArgs e)
         {
-            UserControlBinEmployee binEmp = null;
-            if (binEmp == null)
-            {
-                binEmp = new UserControlBinEmployee();
-            }
+            UserControlBinEmployee binEmp = new UserControlBinEmployee();            
             binEmp.Dock = DockStyle.Fill;
             tpEmployee.Controls.Add(binEmp);          
         }
-
+        
     }
 }

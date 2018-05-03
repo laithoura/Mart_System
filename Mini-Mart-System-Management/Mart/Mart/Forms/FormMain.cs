@@ -15,7 +15,7 @@ using System.IO;
 
 namespace Mart
 {
-    public partial class frmMain : Form
+    public partial class FormMain : Form
     {    
         Point mouseLocation;
         readonly int MINIMUM_WIDTH = 1000;
@@ -25,11 +25,37 @@ namespace Mart
         private readonly Color ButtonBackGround = Color.FromArgb(255, 205, 65);        
 
         /* This Constructor will be Called when Login is Successful */        
-        public frmMain()
+        public FormMain()
         {
             InitializeComponent();
             SetSizeLocation();
-            RegisterEventControll();            
+            RegisterEventControll();
+
+            if (Program.empLogin != null)
+            {
+                if (Program.empLogin.Roles.Name.ToLower() == "stock manager")
+                {
+                    btnSelling.Enabled = false;
+                    btnProduct.Enabled = false;
+                    btnReport.Enabled = false;
+                    btnEmployee.Enabled = false;
+                    btnBin.Enabled = false;
+
+                    btnImport_Click(btnImport,null);
+                    
+                }
+                else if (Program.empLogin.Roles.Name.ToLower() == "seller")
+                {
+                    btnImport.Enabled = false;
+                    btnProduct.Enabled = false;
+                    btnReport.Enabled = false;
+                    btnEmployee.Enabled = false;
+                    btnSupplier.Enabled = false;
+                    btnBin.Enabled = false;
+
+                    btnSelling_Click(btnSelling,null);
+                }
+            }
         }
 
         private void SetSizeLocation()
@@ -70,10 +96,10 @@ namespace Mart
             pbResize.MouseHover += DoHover;
 
             /* Register Manu Buttons */
-            btnUser.Click +=btnUser_Click;
-            btnStock.Click +=btnStock_Click;
+            btnEmployee.Click +=btnUser_Click;
+            btnImport.Click +=btnImport_Click;
             btnSelling.Click +=btnSelling_Click;
-            btnSetting.Click +=btnSetting_Click;
+            btnSupplier.Click +=btnSupplier_Click;
             btnReport.Click +=btnReport_Click;
             btnProduct.Click +=btnProduct_Click;
             btnExit.Click +=btnExit_Click;
@@ -121,7 +147,7 @@ namespace Mart
             {
                 if (Program.empLogin.Roles.Name.CompareTo("Admin") != 0)
                 {
-                    btnUser.Enabled = false;
+                    btnEmployee.Enabled = false;
                 }
                 lblRole.Text = Program.empLogin.Roles.Name;
                 lblUsername.Text = Program.empLogin.LastName + " " + Program.empLogin.FirstName;
@@ -226,7 +252,7 @@ namespace Mart
         private void btnUser_Click(object sender, EventArgs e)
         {
             ClearMenuButtonColor();
-            btnUser.BackColor = ButtonBackGround;       
+            btnEmployee.BackColor = ButtonBackGround;       
 
             if (!mainPanel.Controls.Contains(UEmployee.Instance))
             {
@@ -242,30 +268,30 @@ namespace Mart
 
         private void ClearMenuButtonColor()
         {
-            btnUser.BackColor = Color.Transparent;
-            btnStock.BackColor = Color.Transparent;
+            btnEmployee.BackColor = Color.Transparent;
+            btnImport.BackColor = Color.Transparent;
             btnSelling.BackColor = Color.Transparent;
-            btnSetting.BackColor = Color.Transparent;
+            btnSupplier.BackColor = Color.Transparent;
             btnReport.BackColor = Color.Transparent;
             btnProduct.BackColor = Color.Transparent;
             btnExit.BackColor = Color.Transparent;
             btnBin.BackColor = Color.Transparent;            
         }
 
-        private void btnSetting_Click(object sender, EventArgs e)
+        private void btnSupplier_Click(object sender, EventArgs e)
         {
             ClearMenuButtonColor();
-            btnSetting.BackColor = ButtonBackGround;       
+            btnSupplier.BackColor = ButtonBackGround;       
 
-            if (!mainPanel.Controls.Contains(UserControlSetting.Instance))
+            if (!mainPanel.Controls.Contains(UserControlSupplier.Instance))
             {
-                mainPanel.Controls.Add(UserControlSetting.Instance);
-                UserControlSetting.Instance.Dock = DockStyle.Fill;
-                UserControlSetting.Instance.BringToFront();
+                mainPanel.Controls.Add(UserControlSupplier.Instance);
+                UserControlSupplier.Instance.Dock = DockStyle.Fill;
+                UserControlSupplier.Instance.BringToFront();
             }
             else
             {
-                UserControlSetting.Instance.BringToFront();
+                UserControlSupplier.Instance.BringToFront();
             }
         }
 
@@ -337,10 +363,10 @@ namespace Mart
             }
         }
 
-        private void btnStock_Click(object sender, EventArgs e)
+        private void btnImport_Click(object sender, EventArgs e)
         {            
             ClearMenuButtonColor();
-            btnStock.BackColor = ButtonBackGround;       
+            btnImport.BackColor = ButtonBackGround;       
 
             if (!mainPanel.Controls.Contains(UserControlImportStock.Instance))
             {

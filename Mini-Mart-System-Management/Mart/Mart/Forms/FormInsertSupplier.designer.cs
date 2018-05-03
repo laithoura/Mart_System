@@ -387,6 +387,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "FormInsertSupplier";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.frmInsertSupplier_Load);
             this.pBannerTop.ResumeLayout(false);
             this.pBannerTop.PerformLayout();

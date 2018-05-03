@@ -1,6 +1,6 @@
 ﻿namespace Mart.Forms
 {
-    partial class frmInsertImport
+    partial class FormInsertImport
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboProduct = new System.Windows.Forms.ComboBox();
             this.cboSupplier = new System.Windows.Forms.ComboBox();
             this.dtpImportDate = new System.Windows.Forms.DateTimePicker();
@@ -50,7 +50,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtSalePrice = new System.Windows.Forms.TextBox();
             this.lblUnitPrice = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAddSupplier = new System.Windows.Forms.Label();
             this.lblAddProduct = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -189,13 +189,14 @@
             // 
             this.dgvImportDetail.AllowUserToAddRows = false;
             this.dgvImportDetail.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.dgvImportDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.dgvImportDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvImportDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvImportDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvImportDetail.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvImportDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvImportDetail.ColumnHeadersHeight = 30;
             this.dgvImportDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -211,7 +212,7 @@
             this.dgvImportDetail.RowTemplate.Height = 30;
             this.dgvImportDetail.RowTemplate.ReadOnly = true;
             this.dgvImportDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvImportDetail.Size = new System.Drawing.Size(604, 223);
+            this.dgvImportDetail.Size = new System.Drawing.Size(611, 223);
             this.dgvImportDetail.TabIndex = 28;
             // 
             // Column1
@@ -269,24 +270,24 @@
             this.lblUnitPrice.TabIndex = 45;
             this.lblUnitPrice.Text = "Sale Price:";
             // 
-            // label1
+            // lblAddSupplier
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Image = global::Mart.Properties.Resources.Add_20;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(321, 54);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 19);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "Add";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblAddSupplier.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddSupplier.Image = global::Mart.Properties.Resources.Add_20;
+            this.lblAddSupplier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAddSupplier.Location = new System.Drawing.Point(321, 52);
+            this.lblAddSupplier.Name = "lblAddSupplier";
+            this.lblAddSupplier.Size = new System.Drawing.Size(54, 19);
+            this.lblAddSupplier.TabIndex = 53;
+            this.lblAddSupplier.Text = "Add";
+            this.lblAddSupplier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblAddProduct
             // 
             this.lblAddProduct.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddProduct.Image = global::Mart.Properties.Resources.Add_20;
             this.lblAddProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblAddProduct.Location = new System.Drawing.Point(321, 89);
+            this.lblAddProduct.Location = new System.Drawing.Point(321, 87);
             this.lblAddProduct.Name = "lblAddProduct";
             this.lblAddProduct.Size = new System.Drawing.Size(54, 19);
             this.lblAddProduct.TabIndex = 52;
@@ -347,7 +348,7 @@
             this.btnImport.ForeColor = System.Drawing.Color.Black;
             this.btnImport.Image = global::Mart.Properties.Resources.Import_32;
             this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImport.Location = new System.Drawing.Point(522, 497);
+            this.btnImport.Location = new System.Drawing.Point(529, 497);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(102, 34);
             this.btnImport.TabIndex = 9;
@@ -410,15 +411,15 @@
             this.label2.TabIndex = 54;
             this.label2.Text = "Total Row:";
             // 
-            // frmInsertImport
+            // FormInsertImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(174)))), ((int)(((byte)(190)))));
-            this.ClientSize = new System.Drawing.Size(636, 537);
+            this.ClientSize = new System.Drawing.Size(643, 537);
             this.Controls.Add(this.txtTotalRow);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblAddSupplier);
             this.Controls.Add(this.lblAddProduct);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnClose);
@@ -441,7 +442,7 @@
             this.Controls.Add(this.lblSupplier);
             this.Controls.Add(this.lblImpDate);
             this.Controls.Add(this.dgvImportDetail);
-            this.Name = "frmInsertImport";
+            this.Name = "FormInsertImport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form insert import";
             ((System.ComponentModel.ISupportInitialize)(this.dgvImportDetail)).EndInit();
@@ -473,7 +474,7 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Label lblAddProduct;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAddSupplier;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

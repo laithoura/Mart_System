@@ -20,124 +20,75 @@ namespace Mart.Forms
         readonly string PCName = Environment.MachineName;
         private string conString = "";
         private Point mouseLocation;
+
         public FormServerConnection()
         {
             InitializeComponent();
-            this.Shown += frmServerConnection_Shown;
-            this.Load += frmServerConnection_Load;
-
-            this.btnTestConnection.Click += btnConnect_Click;
-            this.btnSave.Click += btnSave_Click;
+            
+            this.TestServerConnection.Click += btnConnect_Click;
             this.pbClose.Click += pbClose_Click;
             this.pbClose.MouseHover += pbClose_MouseHover;
             this.cboAuthentication.SelectedIndex = 0;
-            pAccount.Enabled = false;
-            btnSave.Enabled = false; /*If our connection is successful*/
+            this.panelAccount.Enabled = false;
             this.cboAuthentication.SelectedIndexChanged += cboAuthentication_SelectedIndexChanged;
 
+            this.MouseMove += FormServerConnection_MouseMove;
+            this.MouseDown += FormServerConnection_MouseDown;
 
-            this.MouseMove += frmServerConnection_MouseMove;
-            this.MouseDown += frmServerConnection_MouseDown;
+            GetConnectionFromProperties();
         }
 
-        void frmServerConnection_MouseDown(object sender, MouseEventArgs e)
-        {
-            mouseLocation = new Point(-e.X,-e.Y);
-        }
 
-        void frmServerConnection_MouseMove(object sender, MouseEventArgs e)
+        private void GetConnectionFromProperties()
         {
-            if (e.Button == MouseButtons.Left)
+            var serverName = Properties.Settings.Default.ServerName;
+            var databaseName = Properties.Settings.Default.DatabaseName;
+            var userName = Properties.Settings.Default.Username;
+            var password = Properties.Settings.Default.Password;
+            
+
+            if (!(string.IsNullOrEmpty(serverName) && string.IsNullOrEmpty(databaseName)) && string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
             {
-                Point mousePose = Control.MousePosition;
-                mousePose.Offset(mouseLocation.X,mouseLocation.Y);
-                Location = mousePose;
+                conString = string.Format(@"Data Source={0};Initial Catalog={1};Integrated Security=True", serverName, databaseName);
             }
-        }
-
-        void pbClose_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(pbClose,"Close Connection");
-        }
-
-        void pbClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        void btnSave_Click(object sender, EventArgs e)
-        {
-            if (conString != "")
+            else if (!(string.IsNullOrEmpty(serverName) && string.IsNullOrEmpty(databaseName) && string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password)))
             {
-                Connection conn = new Connection();
-                if (conn.SaveConnectionString("LocalConnection", conString))
-                {
-                    MessageBox.Show("Your Connection is saved successfully", "Connection");
-                    FormLogin frm = new FormLogin();
-                    this.Hide();
-                    frm.ShowDialog();
-                };
-            }           
-        }
-
-        void cboAuthentication_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnSave.Enabled = false;
-            if (cboAuthentication.SelectedIndex == 0)
-            {
-                pAccount.Enabled = false;
-            }
-            else pAccount.Enabled = true;
-        }
-        void btnConnect_Click(object sender, EventArgs e)
-        {            
-            if (cboAuthentication.SelectedIndex == 0)
-            {
-               conString = string.Format(@"Data Source={0};Initial Catalog={1};Integrated Security=True", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim());
+                conString = string.Format(@"Data Source={0};Initial Catalog={1};User={2};Password={3};", serverName, databaseName, userName, password);
             }
             else
             {
-                if (txtPassword.Text.Trim() == "" || txtUsername.Text.Trim() == "")
-                {
-                    MessageBox.Show("Enter Username or Password to access your database","Connect",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    btnSave.Enabled = false;
-                    return;
-                }
-               conString = string.Format(@"Data Source={0};Initial Catalog={1};User={2};Password={3};", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim(),txtUsername.Text.Trim(),txtPassword.Text.Trim());         
+                LoadLocalDatabaseNameToComboBox();
+            }
+            
+            if (!string.IsNullOrEmpty(conString))
+            {
+                LoadDataToControl(serverName,databaseName,userName,password);
+                checkBoxRemember.Checked = true;
+                ConnectionToServer();
             }
 
-            SqlConnection con = null;
-            try
-            {
-                con = new SqlConnection(conString);
-                if (con.State == ConnectionState.Closed)
-                {                
-                    con.Open();
-                    MessageBox.Show("Your connection is successful.", "Connection");
-                }
-                btnSave.Enabled = true;   
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,"Connection");
-                btnSave.Enabled = false;
-            }
-            finally
-            {
-                con.Close();
-            }
         }
 
-        void frmServerConnection_Load(object sender, EventArgs e)
+
+
+        private void LoadDataToControl(string serverName, string databaseName, string userName, string password)
         {
-            cboServerName.Items.Add(".");
+            cboServerName.Text = serverName;
+            cboDatabaseName.Text = databaseName;
+            txtUsername.Text = userName;
+            txtPassword.Text = password;
+        }        
+
+
+
+        private void LoadLocalDatabaseNameToComboBox()
+        {
             cboServerName.Items.Add("(local)");
-            cboServerName.Items.Add(@".\SQLEXPRESS");
-            cboServerName.Items.Add(string.Format(@"{0}/SQLEXPRESS",PCName));
             cboServerName.Items.Add(PCName);
-            cboServerName.Items.Add(string.Format(@"{0}\MSSQLSERVER",PCName));
-            
+            cboServerName.Items.Add(@".\SQLEXPRESS");
+            cboServerName.Items.Add(string.Format(@"{0}/SQLEXPRESS", PCName));
+            cboServerName.Items.Add(string.Format(@"{0}\MSSQLSERVER", PCName));
+
             string connectionString = "Data Source=.; Integrated Security=True;";
 
             SqlConnection con = new SqlConnection(connectionString);
@@ -145,14 +96,14 @@ namespace Mart.Forms
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.Open(); 
-                }                               
+                    con.Open();
+                }
                 SqlDataAdapter da = new SqlDataAdapter("SELECT name from sys.databases", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 cboDatabaseName.DataSource = dt;
                 cboDatabaseName.DisplayMember = "name";
-                cboDatabaseName.ValueMember = "name";                                
+                cboDatabaseName.ValueMember = "name";
             }
             catch (Exception ex)
             {
@@ -163,28 +114,120 @@ namespace Mart.Forms
                 if (con.State == ConnectionState.Open)
                 {
                     con.Close();
-                }                    
+                }
             }
-            
-        }
-        void frmServerConnection_Shown(object sender, EventArgs e)
-        {
-            //SqlTestInfo();
         }
 
-
-        public void SqlTestInfo()
+        void FormServerConnection_MouseDown(object sender, MouseEventArgs e)
         {
-            RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-            RegistryKey key = baseKey.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL");
+            mouseLocation = new Point(-e.X,-e.Y);
+        }
 
-            foreach (string s in key.GetValueNames())
+
+        void FormServerConnection_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
             {
-                MessageBox.Show(s);
+                Point mousePose = Control.MousePosition;
+                mousePose.Offset(mouseLocation.X,mouseLocation.Y);
+                Location = mousePose;
+            }
+        }
+
+
+        void pbClose_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(pbClose,"Close Connection");
+        }
+
+
+        void pbClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        void cboAuthentication_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboAuthentication.SelectedIndex == 0)
+            {
+                panelAccount.Enabled = false;
+            }
+            else panelAccount.Enabled = true;
+        }
+
+        void btnConnect_Click(object sender, EventArgs e)
+        {            
+
+            if (cboAuthentication.SelectedIndex == 0)
+            {
+               conString = string.Format(@"Data Source={0};Initial Catalog={1};Integrated Security=True", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim());
+            }
+            else
+            {
+                if (txtPassword.Text.Trim() == "" || txtUsername.Text.Trim() == "")
+                {
+                    MessageBox.Show("Enter Username or Password to access your database","Connect",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return;
+                }
+               conString = string.Format(@"Data Source={0};Initial Catalog={1};User={2};Password={3};", cboServerName.Text.Trim(), cboDatabaseName.Text.Trim(),txtUsername.Text.Trim(),txtPassword.Text.Trim());         
             }
 
-            key.Close();
-            baseKey.Close(); 
-        }    
+           ConnectionToServer();
+        }
+
+        private void ConnectionToServer()
+        {
+            SqlConnection con = null;
+            try
+            {
+                con = new SqlConnection(conString);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+
+                    if (checkBoxRemember.Checked)
+                    {
+                        SaveServerConnection();
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.Reset();
+                    }
+
+                    if (conString != "")
+                    {
+                        Connection conn = new Connection();
+                        if (conn.SaveConnectionString("LocalConnection", conString))
+                        {
+                            FormLogin formLogin = new FormLogin();
+                            Hide();
+                            formLogin.ShowDialog();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot connect to server. " + ex.Message, "Connection");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void SaveServerConnection()
+        {
+            Properties.Settings.Default.ServerName = cboServerName.Text.Trim();
+            Properties.Settings.Default.DatabaseName = cboDatabaseName.Text.Trim();
+            Properties.Settings.Default.Username = txtUsername.Text.Trim();
+            Properties.Settings.Default.Password = txtPassword.Text.Trim();
+            Properties.Settings.Default.Save();
+        }
+
+
+            
     }
 }

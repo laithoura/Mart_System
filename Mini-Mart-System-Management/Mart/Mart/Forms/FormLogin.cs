@@ -12,6 +12,7 @@ using Mart.Intefaces;
 using Mart.InstanceClasses;
 using Mart.ControlClasses;
 
+
 namespace Mart.Forms
 {
     public partial class FormLogin : Form,IMessageType
@@ -117,7 +118,7 @@ namespace Mart.Forms
 
         void insertEmployee_FormClosed(object sender, FormClosedEventArgs e)
         {
-            frmMain frm = new frmMain();
+            FormMain frm = new FormMain();
             this.Hide();
             frm.ShowDialog();    
         }
@@ -137,6 +138,17 @@ namespace Mart.Forms
         void frmLogin_Shown(object sender, EventArgs e)
         {
             pContainer.Focus();
+            GetSavedPassword();
+        }
+
+        private void GetSavedPassword()
+        {
+            var username = Properties.Settings.Default.LoginUserName;
+            var password = Properties.Settings.Default.LoginPassword;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return;
+
+            txtUsername.Text = username;
+            txtPassword.Text = password;
         }
 
         private void frmLogin_Load(object sender, EventArgs e)
@@ -144,6 +156,7 @@ namespace Mart.Forms
             /* Start Opacity of Login Form*/
             this.timeLogin.Start();            
         }
+
 
         private void DoTimeLoginOpacity(object sender, EventArgs e)
         {
@@ -163,6 +176,8 @@ namespace Mart.Forms
             pContainer.Focus();
         }
 
+
+
         void Employee_Created(Employee emp)
         {
             Program.empLogin = emp;
@@ -179,6 +194,8 @@ namespace Mart.Forms
                 }
             }
         }
+
+
 
         public bool Insert(Employee emp)
         {
@@ -221,6 +238,7 @@ namespace Mart.Forms
             return success;
         }
 
+
         private void DoLoginConfirmed(object sender, EventArgs e)
         {
             SqlCommand cmd = null;
@@ -254,10 +272,7 @@ namespace Mart.Forms
                     }                    
                 } 
             }
-            catch (SqlException ex)
-            {
-                MessageError(ex.Message,"Login");
-            }
+            catch (SqlException){ }
             finally
             {
                 try
@@ -276,11 +291,24 @@ namespace Mart.Forms
             }
             else
             {
-                frmMain frm = new frmMain();
+                if (checkBoxRemember.Checked)
+                    SavePassword(txtUsername.Text.Trim(), txtPassword.Text.Trim());
+                else
+                    SavePassword("","");
+
+                FormMain frm = new FormMain();
                 this.Hide();
-                frm.ShowDialog();                
+                frm.ShowDialog();     
+                
             }
-        }        
+        }
+
+        private void SavePassword(string username, string password)
+        {
+            Properties.Settings.Default.LoginUserName = username;
+            Properties.Settings.Default.LoginPassword = password;
+            Properties.Settings.Default.Save();
+        }
 
         void pbShow_MouseHover(object sender, EventArgs e)
         {
@@ -361,7 +389,7 @@ namespace Mart.Forms
 
         private void pbCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         public void MessageSuccess(string des, string title)

@@ -108,9 +108,7 @@ namespace Mart.Forms
         }
         private void GetValueFromControl()
         {
-
-         
-
+       
             if (txtSupFirstName.Text.Trim() == "")
             {
                 RequiredMessage("Enter First Name");
@@ -136,9 +134,6 @@ namespace Mart.Forms
                 RequiredMessage("Enter the Company Name");
                 return;
             }
-
-
-
 
             if (sup == null)  /* Add new Supplier */
             {
@@ -170,7 +165,7 @@ namespace Mart.Forms
                              );
                 }
             }
-            }
+        }
         private void MessageError(string des, string title)
         {
             MessageBox.Show(des, title, MessageBoxButtons.OK, MessageBoxIcon.Error); 

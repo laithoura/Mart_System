@@ -377,6 +377,7 @@ namespace Mart.Forms
                 RequiredMessage("This username is already exist!");
                 return false;                    
             }
+
             if (chCreateAccount.Checked == true)
             {
                 if (txtUserName.Text.Trim() == ""){
@@ -391,7 +392,7 @@ namespace Mart.Forms
                     return false;
                 }
             }            
-                      
+                    
             if (emp == null)  /* Add new Employee */
             {
                 if (imagePath == "") /* User didn't browse new Picture */

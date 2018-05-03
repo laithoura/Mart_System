@@ -599,7 +599,7 @@ namespace Mart.UserControls
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            frmInsertImport frmInsertImport = new frmInsertImport();
+            FormInsertImport frmInsertImport = new FormInsertImport();
             frmInsertImport.Closed += FrmInsertImport_Closed;
             frmInsertImport.Show();
         }
