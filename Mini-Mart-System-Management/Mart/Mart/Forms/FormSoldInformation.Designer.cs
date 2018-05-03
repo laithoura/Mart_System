@@ -54,7 +54,6 @@
             this.chSearchDates = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSoldDetail)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -332,7 +331,7 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnRefresh.Location = new System.Drawing.Point(775, 3);
+            this.btnRefresh.Location = new System.Drawing.Point(851, 3);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(78, 67);
@@ -341,26 +340,6 @@
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEdit.BackgroundImage")));
-            this.btnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnEdit.FlatAppearance.BorderSize = 0;
-            this.btnEdit.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnEdit.Location = new System.Drawing.Point(931, 3);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(78, 67);
-            this.btnEdit.TabIndex = 4;
-            this.btnEdit.Text = "Update";
-            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // btnExport
             // 
@@ -372,7 +351,7 @@
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnExport.Location = new System.Drawing.Point(853, 3);
+            this.btnExport.Location = new System.Drawing.Point(933, 3);
             this.btnExport.Margin = new System.Windows.Forms.Padding(2);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(78, 67);
@@ -391,7 +370,6 @@
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.chSearchDates);
@@ -417,7 +395,6 @@
 
         private System.Windows.Forms.DataGridView dgvSoldDetail;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.ComboBox cboSearchType;
         private System.Windows.Forms.TextBox txtSearchBox;
         private System.Windows.Forms.DateTimePicker dtpSoldDate;

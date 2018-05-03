@@ -104,7 +104,7 @@
             this.dgvEmployee.RowHeadersWidth = 25;
             this.dgvEmployee.RowTemplate.Height = 30;
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmployee.Size = new System.Drawing.Size(933, 378);
+            this.dgvEmployee.Size = new System.Drawing.Size(933, 370);
             this.dgvEmployee.TabIndex = 0;
             // 
             // Column1
@@ -233,7 +233,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(933, 478);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(933, 470);
             this.tableLayoutPanel1.TabIndex = 18;
             // 
             // panel1
@@ -379,7 +379,7 @@
             // 
             this.panel2.Controls.Add(this.statusStrip1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 453);
+            this.panel2.Location = new System.Drawing.Point(0, 445);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(933, 25);
@@ -388,6 +388,7 @@
             // statusStrip1
             // 
             this.statusStrip1.AutoSize = false;
+            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.lblEmployeeNumber,
@@ -398,9 +399,9 @@
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel5,
             this.lblAccountNumber});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 3);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(933, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(933, 25);
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -408,14 +409,14 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(51, 20);
             this.toolStripStatusLabel1.Text = "Total   :  ";
             // 
             // lblEmployeeNumber
             // 
             this.lblEmployeeNumber.BackColor = System.Drawing.Color.Transparent;
             this.lblEmployeeNumber.Name = "lblEmployeeNumber";
-            this.lblEmployeeNumber.Size = new System.Drawing.Size(13, 17);
+            this.lblEmployeeNumber.Size = new System.Drawing.Size(13, 20);
             this.lblEmployeeNumber.Text = "0";
             // 
             // toolStripSplitButton1
@@ -423,49 +424,49 @@
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 20);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 23);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(22, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(22, 20);
             this.toolStripStatusLabel2.Text = "  |  ";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(60, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(60, 20);
             this.toolStripStatusLabel3.Text = "Female  :  ";
             // 
             // lblFemaleNumber
             // 
             this.lblFemaleNumber.BackColor = System.Drawing.Color.Transparent;
             this.lblFemaleNumber.Name = "lblFemaleNumber";
-            this.lblFemaleNumber.Size = new System.Drawing.Size(13, 17);
+            this.lblFemaleNumber.Size = new System.Drawing.Size(13, 20);
             this.lblFemaleNumber.Text = "0";
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(22, 17);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(22, 20);
             this.toolStripStatusLabel4.Text = "  |  ";
             // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(78, 17);
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(78, 20);
             this.toolStripStatusLabel5.Text = "User Login  :  ";
             // 
             // lblAccountNumber
             // 
             this.lblAccountNumber.BackColor = System.Drawing.Color.Transparent;
             this.lblAccountNumber.Name = "lblAccountNumber";
-            this.lblAccountNumber.Size = new System.Drawing.Size(13, 17);
+            this.lblAccountNumber.Size = new System.Drawing.Size(13, 20);
             this.lblAccountNumber.Text = "0";
             // 
             // UEmployee

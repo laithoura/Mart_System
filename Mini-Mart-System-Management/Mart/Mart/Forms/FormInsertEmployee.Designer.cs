@@ -43,6 +43,7 @@
             this.rdMale = new System.Windows.Forms.RadioButton();
             this.rdFemale = new System.Windows.Forms.RadioButton();
             this.panelAcount = new System.Windows.Forms.Panel();
+            this.pbDeleteAccount = new System.Windows.Forms.PictureBox();
             this.txtRetypePassword = new System.Windows.Forms.TextBox();
             this.txtNewPassword = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,22 +51,21 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.pbMinimize = new System.Windows.Forms.PictureBox();
+            this.pbCloseDialog = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pbMinimize = new System.Windows.Forms.PictureBox();
-            this.pbCloseDialog = new System.Windows.Forms.PictureBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.pbDeleteAccount = new System.Windows.Forms.PictureBox();
             this.pbEmployeePhoto = new System.Windows.Forms.PictureBox();
             this.panelAcount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteAccount)).BeginInit();
             this.pBanner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseDialog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEmployeePhoto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -222,6 +222,19 @@
             this.panelAcount.Size = new System.Drawing.Size(312, 114);
             this.panelAcount.TabIndex = 31;
             // 
+            // pbDeleteAccount
+            // 
+            this.pbDeleteAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbDeleteAccount.Image = global::Mart.Properties.Resources.delete;
+            this.pbDeleteAccount.Location = new System.Drawing.Point(281, 76);
+            this.pbDeleteAccount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pbDeleteAccount.Name = "pbDeleteAccount";
+            this.pbDeleteAccount.Size = new System.Drawing.Size(26, 27);
+            this.pbDeleteAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbDeleteAccount.TabIndex = 3;
+            this.pbDeleteAccount.TabStop = false;
+            this.pbDeleteAccount.Visible = false;
+            // 
             // txtRetypePassword
             // 
             this.txtRetypePassword.Location = new System.Drawing.Point(97, 77);
@@ -292,6 +305,17 @@
             this.pBanner.Size = new System.Drawing.Size(449, 35);
             this.pBanner.TabIndex = 33;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Mart.Properties.Resources.Employee_48;
+            this.pictureBox1.Location = new System.Drawing.Point(2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
@@ -302,6 +326,32 @@
             this.lblTitle.Size = new System.Drawing.Size(128, 21);
             this.lblTitle.TabIndex = 2;
             this.lblTitle.Text = "Insert Employee";
+            // 
+            // pbMinimize
+            // 
+            this.pbMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMinimize.Image = global::Mart.Properties.Resources.Minimizing;
+            this.pbMinimize.Location = new System.Drawing.Point(387, 1);
+            this.pbMinimize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pbMinimize.Name = "pbMinimize";
+            this.pbMinimize.Size = new System.Drawing.Size(32, 32);
+            this.pbMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMinimize.TabIndex = 1;
+            this.pbMinimize.TabStop = false;
+            this.pbMinimize.Click += new System.EventHandler(this.pbMinimizeInsertDialog);
+            // 
+            // pbCloseDialog
+            // 
+            this.pbCloseDialog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbCloseDialog.Image = global::Mart.Properties.Resources.Exit;
+            this.pbCloseDialog.Location = new System.Drawing.Point(417, 2);
+            this.pbCloseDialog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pbCloseDialog.Name = "pbCloseDialog";
+            this.pbCloseDialog.Size = new System.Drawing.Size(32, 32);
+            this.pbCloseDialog.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCloseDialog.TabIndex = 0;
+            this.pbCloseDialog.TabStop = false;
+            this.pbCloseDialog.Click += new System.EventHandler(this.pbCloseInsertDialog);
             // 
             // panel1
             // 
@@ -344,43 +394,6 @@
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Mart.Properties.Resources.Employee_48;
-            this.pictureBox1.Location = new System.Drawing.Point(2, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pbMinimize
-            // 
-            this.pbMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMinimize.Image = global::Mart.Properties.Resources.Minimizing;
-            this.pbMinimize.Location = new System.Drawing.Point(387, 1);
-            this.pbMinimize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pbMinimize.Name = "pbMinimize";
-            this.pbMinimize.Size = new System.Drawing.Size(32, 32);
-            this.pbMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMinimize.TabIndex = 1;
-            this.pbMinimize.TabStop = false;
-            this.pbMinimize.Click += new System.EventHandler(this.pbMinimizeInsertDialog);
-            // 
-            // pbCloseDialog
-            // 
-            this.pbCloseDialog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCloseDialog.Image = global::Mart.Properties.Resources.Exit;
-            this.pbCloseDialog.Location = new System.Drawing.Point(417, 2);
-            this.pbCloseDialog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pbCloseDialog.Name = "pbCloseDialog";
-            this.pbCloseDialog.Size = new System.Drawing.Size(32, 32);
-            this.pbCloseDialog.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCloseDialog.TabIndex = 0;
-            this.pbCloseDialog.TabStop = false;
-            this.pbCloseDialog.Click += new System.EventHandler(this.pbCloseInsertDialog);
-            // 
             // btnBrowse
             // 
             this.btnBrowse.BackColor = System.Drawing.SystemColors.Control;
@@ -395,19 +408,6 @@
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBrowse.UseVisualStyleBackColor = false;
-            // 
-            // pbDeleteAccount
-            // 
-            this.pbDeleteAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbDeleteAccount.Image = global::Mart.Properties.Resources.delete;
-            this.pbDeleteAccount.Location = new System.Drawing.Point(281, 76);
-            this.pbDeleteAccount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pbDeleteAccount.Name = "pbDeleteAccount";
-            this.pbDeleteAccount.Size = new System.Drawing.Size(26, 27);
-            this.pbDeleteAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbDeleteAccount.TabIndex = 3;
-            this.pbDeleteAccount.TabStop = false;
-            this.pbDeleteAccount.Visible = false;
             // 
             // pbEmployeePhoto
             // 
@@ -459,12 +459,12 @@
             this.Load += new System.EventHandler(this.frmInsertEmployee_Load);
             this.panelAcount.ResumeLayout(false);
             this.panelAcount.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteAccount)).EndInit();
             this.pBanner.ResumeLayout(false);
             this.pBanner.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseDialog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEmployeePhoto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

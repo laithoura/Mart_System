@@ -207,14 +207,20 @@ namespace Mart
             }
             else if(sender == pbExit)
             {
-                Environment.Exit(0);
+                if (MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {                    
+                    Environment.Exit(0);
+                }
             }                
         }      
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             ClearMenuButtonColor();
-            Environment.Exit(0);
+            if (MessageBox.Show("Do you want to exit?","Exit",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            {
+                Environment.Exit(0);                
+            }
         }
 
         private void btnUser_Click(object sender, EventArgs e)
@@ -251,15 +257,15 @@ namespace Mart
             ClearMenuButtonColor();
             btnSetting.BackColor = ButtonBackGround;       
 
-            if (!mainPanel.Controls.Contains(USetting.Instance))
+            if (!mainPanel.Controls.Contains(UserControlSetting.Instance))
             {
-                mainPanel.Controls.Add(USetting.Instance);
-                USetting.Instance.Dock = DockStyle.Fill;
-                USetting.Instance.BringToFront();
+                mainPanel.Controls.Add(UserControlSetting.Instance);
+                UserControlSetting.Instance.Dock = DockStyle.Fill;
+                UserControlSetting.Instance.BringToFront();
             }
             else
             {
-                USetting.Instance.BringToFront();
+                UserControlSetting.Instance.BringToFront();
             }
         }
 

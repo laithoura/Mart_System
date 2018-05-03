@@ -356,6 +356,8 @@ namespace Mart
             }                            
             else if (sender == btnRefresh)
             {
+                LoadData();
+                /*
                 femaleNumber = 0;
                 AccoutNumber = 0;
                 cboRole.SelectedIndex = -1;
@@ -372,13 +374,14 @@ namespace Mart
                 }
                 SetBottomInformationToTextBox();
                 SetEnableButton(true);
+                 */
             }
             else if (sender == btnRoleDetails)
             {
                 FormRole frm = new FormRole();                
                 frm.Exited += frm_Exited;
                 frm.ShowDialog();
-            }
+            }               
         }
 
         void frm_Exited(object sender)

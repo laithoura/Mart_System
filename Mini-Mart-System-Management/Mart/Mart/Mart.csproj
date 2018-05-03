@@ -95,6 +95,12 @@
     <Compile Include="Forms\FormInsertEmployee.Designer.cs">
       <DependentUpon>FormInsertEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormInsertSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInsertSupplier.designer.cs">
+      <DependentUpon>FormInsertSupplier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormLoading.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,10 +161,17 @@
     <Compile Include="Forms\FormSoldInformation.Designer.cs">
       <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSupplierDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSupplierDetail.designer.cs">
+      <DependentUpon>FormSupplierDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="InstanceClasses\Employee.cs" />
     <Compile Include="InstanceClasses\Role.cs" />
     <Compile Include="InstanceClasses\SellProduct.cs" />
     <Compile Include="InstanceClasses\sold.cs" />
+    <Compile Include="InstanceClasses\Supplier.cs" />
     <Compile Include="Intefaces\IFunctionModel.cs" />
     <Compile Include="Intefaces\IMessageType.cs" />
     <Compile Include="InstanceClasses\Product.cs" />
@@ -181,6 +194,12 @@
     </Compile>
     <Compile Include="UserControls\UserControlBinEmployee.Designer.cs">
       <DependentUpon>UserControlBinEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlBinSupplier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlBinSupplier.designer.cs">
+      <DependentUpon>UserControlBinSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserControlEmployee.cs">
       <SubType>UserControl</SubType>
@@ -239,6 +258,9 @@
     <EmbeddedResource Include="Forms\FormInsertEmployee.resx">
       <DependentUpon>FormInsertEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInsertSupplier.resx">
+      <DependentUpon>FormInsertSupplier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormLoading.resx">
       <DependentUpon>FormLoading.cs</DependentUpon>
     </EmbeddedResource>
@@ -269,6 +291,9 @@
     <EmbeddedResource Include="Forms\FormSoldInformation.resx">
       <DependentUpon>FormSoldInformation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSupplierDetail.resx">
+      <DependentUpon>FormSupplierDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -279,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlBinEmployee.resx">
       <DependentUpon>UserControlBinEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlBinSupplier.resx">
+      <DependentUpon>UserControlBinSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControlEmployee.resx">
       <DependentUpon>UserControlEmployee.cs</DependentUpon>
@@ -318,6 +346,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="preview_icon.ico" />
+    <Content Include="Resources\icons8_Add_User_Male_25px_2.png" />
+    <Content Include="Resources\icons8_Broom_25px.png" />
+    <Content Include="Resources\icons8_Cancel_25px_1.png" />
+    <Content Include="Resources\icons8_Details_25px.png" />
+    <Content Include="Resources\icons8_New_Copy_25px.png" />
+    <Content Include="Resources\icons8_Refresh_25px.png" />
+    <Content Include="Resources\icons8_Save_25px.png" />
+    <Content Include="Resources\icons8_Search_25px_1.png" />
+    <Content Include="Resources\icons8_Trash_Can_25px.png" />
+    <Content Include="Resources\icons8_Update_User_25px.png" />
+    <Content Include="Resources\Untitled-111copy 2.png" />
     <None Include="Resources\Restore_32.png" />
     <None Include="Resources\Restore_20.png" />
     <None Include="Resources\Sell_32.png" />
@@ -365,8 +404,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataModel\" />
-    <Folder Include="FormPrintDocuments\" />
     <Folder Include="RDLCReport\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

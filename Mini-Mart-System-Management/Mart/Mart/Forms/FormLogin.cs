@@ -22,7 +22,9 @@ namespace Mart.Forms
         private readonly int HEIGHT_NO_TASKBAR = Screen.PrimaryScreen.WorkingArea.Height;
         private readonly string userHolder = "Enter Username";
         private readonly string passHolder = "Enter Password";
-     
+        private int totalRecord = 0;
+        private FormInsertEmployee insertEmployee;
+
         public FormLogin()
         {
             InitializeComponent();
@@ -69,6 +71,55 @@ namespace Mart.Forms
             Employee.Created += Employee_Created;
             pbUsername.MouseHover += pbUsername_MouseHover;
             pbPassword.MouseHover += pbPassword_MouseHover;
+
+            CountEmployeeTableRows();
+        }
+
+        private void CountEmployeeTableRows()
+        {
+            SqlConnection con = Connection.getConnection();
+            SqlCommand cmd = null;
+            SqlDataReader reader =null;           
+            try
+            {
+                if (con.State == ConnectionState.Closed)                
+                con.Open();
+                cmd = new SqlCommand("SELECT COUNT(*) FROM Employee WHERE status = @sta",con);
+                cmd.Parameters.AddWithValue("@sta",true);
+                totalRecord = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (totalRecord == 0)
+                {
+                    insertEmployee = new FormInsertEmployee();
+                    insertEmployee.FormClosed += insertEmployee_FormClosed;
+                    insertEmployee.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {                
+                System.Diagnostics.Debug.WriteLine("Count Employee Row : " + ex.Message);
+            }
+            finally
+            {
+                try
+                {
+                    reader.Close();
+                    cmd.Dispose();
+                    if(con.State == ConnectionState.Open )
+                        con.Close();
+                }
+                catch (NullReferenceException ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Count Employee Row : " + ex.Message);               
+                }
+            }            
+        }
+
+        void insertEmployee_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmMain frm = new frmMain();
+            this.Hide();
+            frm.ShowDialog();    
         }
 
         void pbPassword_MouseHover(object sender, EventArgs e)
@@ -114,7 +165,60 @@ namespace Mart.Forms
 
         void Employee_Created(Employee emp)
         {
-            Program.empLogin = emp;           
+            Program.empLogin = emp;
+            if (totalRecord == 0)
+            {
+                if (Insert(emp))
+                {
+                    MessageSuccess("Employee was saved successfully.","Employee");
+                    insertEmployee.Close();
+                }
+                else
+                {
+                    MessageSuccess("Employee was unsaved successfully.", "Employee");
+                }
+            }
+        }
+
+        public bool Insert(Employee emp)
+        {
+            SqlCommand cmd = null;
+            SqlConnection con = Connection.getConnection();
+            
+            bool success = false;
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("Insert into Employee(lastName,firstName,gender,birthDate,username,password,roleID,status,photo) Values(@ln,@fn,@g,@bd,@un,@pw,@role,@s,@pho)", con);
+                cmd.Parameters.AddWithValue("@ln", emp.LastName);
+                cmd.Parameters.AddWithValue("@fn", emp.FirstName);
+                cmd.Parameters.AddWithValue("@g", emp.Gender);
+                cmd.Parameters.AddWithValue("@bd", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@un", emp.UserName);
+                cmd.Parameters.AddWithValue("@pw", emp.Password);
+                cmd.Parameters.AddWithValue("@role", emp.Roles.ID);
+                cmd.Parameters.AddWithValue("@s", emp.Status);
+                cmd.Parameters.AddWithValue("@pho", emp.Photo);
+                if (cmd.ExecuteNonQuery() > 0) success = true;
+            }
+            catch (Exception ex)
+            {
+                success = false;               
+                System.Diagnostics.Debug.WriteLine("Error Insert : " + ex.Message);
+            }
+            finally
+            {
+                try
+                {
+                    con.Close();
+                    cmd.Dispose();
+                }
+                catch (NullReferenceException ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error Insert : " + ex.Message);
+                }
+            }
+            return success;
         }
 
         private void DoLoginConfirmed(object sender, EventArgs e)

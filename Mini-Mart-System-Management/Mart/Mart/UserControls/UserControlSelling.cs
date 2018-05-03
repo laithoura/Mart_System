@@ -29,7 +29,7 @@ namespace Mart.UserControls
             InitializeComponent();
             lblSalesHistory.Click += DoClick;
             lblSellProduct.Click += DoClick;
-
+            DoClick(lblSellProduct,null);
          }
 
         private void DoClick(object sender, EventArgs e)
@@ -74,11 +74,5 @@ namespace Mart.UserControls
                 }
             }
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
     }
 }
