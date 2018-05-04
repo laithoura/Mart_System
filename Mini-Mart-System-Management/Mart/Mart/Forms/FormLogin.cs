@@ -118,8 +118,8 @@ namespace Mart.Forms
 
         void insertEmployee_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormMain frm = new FormMain();
             this.Hide();
+            FormMain frm = new FormMain();            
             frm.ShowDialog();    
         }
 
@@ -146,6 +146,7 @@ namespace Mart.Forms
             var username = Properties.Settings.Default.LoginUserName;
             var password = Properties.Settings.Default.LoginPassword;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return;
+            else checkBoxRemember.Checked = true;
 
             txtUsername.Text = username;
             txtPassword.Text = password;

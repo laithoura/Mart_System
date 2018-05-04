@@ -34,7 +34,6 @@ namespace Mart.Forms
 
             this.MouseMove += FormServerConnection_MouseMove;
             this.MouseDown += FormServerConnection_MouseDown;
-
             GetConnectionFromProperties();
         }
 
@@ -201,8 +200,8 @@ namespace Mart.Forms
                         Connection conn = new Connection();
                         if (conn.SaveConnectionString("LocalConnection", conString))
                         {
-                            FormLogin formLogin = new FormLogin();
-                            Hide();
+                            this.Hide();
+                            FormLogin formLogin = new FormLogin();                            
                             formLogin.ShowDialog();
                         }
                     }

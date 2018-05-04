@@ -41,8 +41,7 @@ namespace Mart
                     btnEmployee.Enabled = false;
                     btnBin.Enabled = false;
 
-                    btnImport_Click(btnImport,null);
-                    
+                    btnImport_Click(btnImport,null);                    
                 }
                 else if (Program.empLogin.Roles.Name.ToLower() == "seller")
                 {
@@ -55,6 +54,10 @@ namespace Mart
 
                     btnSelling_Click(btnSelling,null);
                 }
+            }
+            else
+            {
+                Environment.Exit(0);
             }
         }
 

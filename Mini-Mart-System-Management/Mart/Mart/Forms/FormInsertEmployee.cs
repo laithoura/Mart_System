@@ -38,7 +38,7 @@ namespace Mart.Forms
         public FormInsertEmployee()
         {
             InitializeComponent();
-            RegisterEventMove();              
+            RegisterEventMove();
         }
 
         private void frmInsertEmployee_Load(object sender, EventArgs e)
